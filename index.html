@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">Todo</div>
+        <!-- <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul> -->
+    </nav>
+    <div id="overlay" class="overlay">
+    </div>
+    <section>
+        <div class="btn-container">
+            <button onclick="showModal()" class="btn" id="add-btn">Add Note</button>
+            <button onclick="clearAllNotes()" class="btn">Clear All</button>
+        </div>
+
+
+        <div class="modal-container">
+            <div class="container-header ">
+                <div class="heading">
+                    <p>Add a New Task</p>
+                </div>
+                <button id="close-modal" onclick="closeModal()" class="btn">X</button>
+            </div>
+            <div class="input-container">
+                <p>Title </p>
+                <input type="text" name="title" placeholder="Enter Your Task Title">
+                <br>
+                <p>Description </p>
+                <textarea type="text" name="desc" placeholder="Enter Your Task Content"></textarea>
+                <br>
+                <button onclick="addNote()" class="btn modal-btn">Add Task</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- 
+            <div class="box-note">
+                <p class="title">${note.title}</p>
+                <p class="desc">${note.description}</p>
+                <hr class="line">
+                <div class="box-footer">
+                    <p class="date">${note.date}</p>
+                    <img onclick="deleteNote(${id})" class="btn dlt-btn" src="delete.png" alt="dlt">
+                </div>
+            </div> -->
+
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+
+</html>
