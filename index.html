@@ -18,7 +18,7 @@
             <li><a href="#">Contact</a></li>
         </ul> -->
     </nav>
-    <div id="overlay" class="overlay">
+    <div id="overlay" >
     </div>
     <section>
         <div class="btn-container">
@@ -41,10 +41,14 @@
                 <p>Description </p>
                 <textarea type="text" name="desc" placeholder="Enter Your Task Content"></textarea>
                 <br>
-                <button onclick="addNote()" class="btn modal-btn">Add Task</button>
+                <button onclick="addNote()" id="submit-btn" class="btn modal-btn">Add Task</button>
             </div>
         </div>
-
+        <div class="confirm-modal">
+            <p>Are you sure you want to delete this note?</p>
+            <button id="cancel-del" onclick="cancelDel()">Cancel</button>
+            <button id="confirm-del" onclick="confirmDelNote(id)">Yes</button>
+        </div>
         <div class="container">
             <!-- 
             <div class="box-note">
@@ -53,7 +57,7 @@
                 <hr class="line">
                 <div class="box-footer">
                     <p class="date">${note.date}</p>
-                    <img onclick="deleteNote(${id})" class="btn dlt-btn" src="delete.png" alt="dlt">
+                    <img onclick="showConfirmModal(${id})" class="btn dlt-btn" src="delete.png" alt="dlt">
                 </div>
             </div> -->
 
