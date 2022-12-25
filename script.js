@@ -10,6 +10,7 @@ let dltBtn = document.querySelector('.dlt-btn')
 let confirm_modal = document.querySelector('.confirm-modal')
 var confirmDelBtn = document.querySelector('#confirm-del')
 let cancelDel = document.querySelector('#cancel-del')
+let modalMsg = document.querySelector('.modal-msg')
 const notes = JSON.parse(localStorage.getItem("notes") || "[]");
 const months = [
     "January",
@@ -70,8 +71,10 @@ addNote = () => {
 }
 
 
-showConfirmModal = (msg) => {
+showConfirmModal = (msg,noteId) => {
+    console.log(noteId)
     confirm_modal.classList.add('showConfirm');
+    // modalMsg.innerHTML = `${msg}`
     overlay.classList.add('overlay')
     document.querySelector('body').style.overflow = "hidden"
 
@@ -124,8 +127,10 @@ showNotes = () => {
     } else {
 
         container.innerHTML = ""
-        notes.forEach((note, id) => {
+        let msg = 'Are you sure?'
+        notes.forEach((note, id,msg) => {
             let boxNote = document.createElement('div');
+
             boxNote.innerHTML = `
             <div class="box-note">
                 <p class="title">${note.title}</p>
