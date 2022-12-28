@@ -73,7 +73,7 @@ nav ul li a {
 .btn-container>button {
     padding: 10px 15px;
     margin-right: 10px;
-
+    border-radius: 5px;
 }
 
 .btn-container :nth-child(1) {
