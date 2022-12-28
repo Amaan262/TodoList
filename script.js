@@ -71,7 +71,7 @@ addNote = () => {
 }
 
 
-showConfirmModal = (msg,noteId) => {
+showConfirmModal = (msg, noteId) => {
     console.log(noteId)
     confirm_modal.classList.add('showConfirm');
     // modalMsg.innerHTML = `${msg}`
@@ -127,14 +127,16 @@ showNotes = () => {
     } else {
 
         container.innerHTML = ""
-        let msg = 'Are you sure?'
-        notes.forEach((note, id,msg) => {
+        // let msg = 'Are you sure?'
+        notes.forEach((note, id, msg) => {
             let boxNote = document.createElement('div');
 
             boxNote.innerHTML = `
             <div class="box-note">
-                <p class="title">${note.title}</p>
-                <p class="desc">${note.description}</p>
+                <div class="bxScroll">
+                    <p class="title">${note.title}</p>
+                    <p class="desc">${note.description}</p>
+                </div>
                 <hr class="line">
                 <div class="box-footer">
                     <p class="date">${note.date}</p>

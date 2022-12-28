@@ -111,7 +111,7 @@ nav ul li a {
     width: 100%;
     z-index: 99;
     transition: .4s all;
-    
+
 }
 
 .modal-container .container-header {
@@ -185,7 +185,7 @@ textarea:focus {
     background-color: white;
     height: 16rem;
     width: 16rem;
-    padding: 20px;
+    /* padding: 20px; */
     border-radius: 6px;
     position: relative;
 
@@ -196,20 +196,34 @@ textarea:focus {
 
 .box-note::-webkit-scrollbar {
     display: none;
+    overflow: hidden;
 }
 
+.bxScroll {
+    position: absolute;
+    overflow-y: scroll;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
 
+}
+
+.bxScroll::-webkit-scrollbar {
+    display: none;
+    overflow: hidden;
+}
 
 .box-note p.title {
     font-size: 1.6rem;
     margin-bottom: 10px;
+    /* display: block; */
     /* text-decoration: underline; */
     text-transform: capitalize;
 }
 
 .box-note .desc {
     font-size: 1.4rem;
-    position: absolute;
+    /* position: absolute; */
     opacity: 0.6;
     text-overflow: ellipsis;
 
@@ -220,6 +234,8 @@ textarea:focus {
     background-color: blue;
     position: absolute;
     bottom: 50px;
+    margin: 0 20px;
+    z-index: 1;
 }
 
 .box-note .box-footer {
@@ -229,16 +245,21 @@ textarea:focus {
     align-items: center;
     bottom: 0px;
     width: 100%;
-    margin-bottom: 10px;
-    background-color: White;
+    padding: 10px 20px;
+    /* padding-bottom: 10px; */
+    justify-content: space-between;
+    background-color: white;
+
 }
 
 
 
+
+
 .box-note .box-footer .dlt-btn {
-    position: absolute;
-    right: 35px;
-    bottom: 0;
+    /* position: absolute; */
+    /* right: 35px; */
+    /* bottom: 0; */
     width: 2rem;
     line-height: 1.3;
 }
@@ -264,7 +285,8 @@ textarea:focus {
     transition: 0.5s ease;
     /* display: none; */
 }
-.showConfirm{
+
+.showConfirm {
     top: 25%;
     /* display: block; */
 }
@@ -273,16 +295,18 @@ textarea:focus {
     font-weight: 500;
     margin-bottom: 2rem;
 }
+
 .confirm-modal :nth-child(2) {
 
     background-color: rgba(255, 255, 255, 0);
     color: #6E6E6E;
     transition: 0.3s ease;
 }
+
 .confirm-modal :nth-child(2):hover {
 
-    background-color:#02162211;
-    
+    background-color: #02162211;
+
     /* color: red; */
 }
 
@@ -293,6 +317,7 @@ textarea:focus {
     transition: 0.3s ease;
 
 }
+
 .confirm-modal :nth-child(3):hover {
 
     background-color: #be2a39;
