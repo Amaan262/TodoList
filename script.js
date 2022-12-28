@@ -114,8 +114,10 @@ showNotes = () => {
         container.innerHTML = ""
         let boxNote = document.createElement('div')
         boxNote.innerHTML = `<div class="box-note">
-        <p class="title">Sorry</p>
-        <p class="desc">Nothing to display </p>
+        <div class="bxScroll">
+        <p class="title">whoa! You don't have any task!</p>
+        <p class="desc">Wanna be sorted as you are! </p>
+        </div>
         <!-- <hr class="line"> -->
         <div class="box-footer">
         <p class="date"></p>
