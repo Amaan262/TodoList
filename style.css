@@ -17,11 +17,15 @@ body {
 
 }
 
+li {
+    list-style: none;
+}
+
 nav {
     display: flex;
     align-items: center;
     /* justify-content: space-between; */
-    justify-content: center;
+    justify-content: space-between;
     padding: 1rem 2rem;
     background-color: #021622;
     color: white;
@@ -34,11 +38,11 @@ nav .logo {
 
 nav ul {
     display: flex;
-    margin-right: 4rem;
+    margin-right: 20%;
 }
 
 nav ul li {
-    padding: 5px 10px;
+    padding: 5px 20px;
     font-size: 1.5rem;
     list-style-type: none;
     text-decoration: none;
@@ -78,7 +82,11 @@ nav ul li a {
 
 .btn-container :nth-child(1) {
     color: white;
-    background-color: black;
+    background-color: rgb(75, 68, 68);
+
+}
+.btn-container :nth-child(1):hover {
+    background-color: #021622;
 
 }
 
@@ -86,6 +94,9 @@ nav ul li a {
 .btn-container :nth-child(2) {
     background-color: #DC3545;
     color: white;
+}
+.btn-container :nth-child(2):hover {
+    background-color: #b41e2d;
 }
 
 .modal-container {
@@ -167,6 +178,9 @@ textarea:focus {
     background-color: #88abff;
     color: white;
     padding: 8px 5px;
+}
+.modal-container .input-container .modal-btn:hover {
+background-color: #5986f0;
 }
 
 
@@ -254,20 +268,69 @@ textarea:focus {
 
 
 
-
-
-.box-note .box-footer .dlt-btn {
+.setting {
     /* position: absolute; */
-    /* right: 35px; */
-    /* bottom: 0; */
-    width: 2rem;
-    line-height: 1.3;
-}
-
-.box-note .box-footer .dots:hover {
-    color: #5e8bf4;
+    position: relative;
 
 }
+
+.setting .dots {
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: #6d6d6d;
+    display: inline;
+    color: #88abff;
+
+
+}
+
+
+
+.setting ul {
+    z-index: 1;
+    background-color: white;
+    position: absolute;
+    bottom: 5px;
+    right: -5px;
+    padding: 6px 0px;
+    border-radius: 4px;
+    transform: scale(0);
+    transform-origin: bottom right;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease;
+
+    /* display: none; */
+}
+
+.setting ul li {
+    height: 25px;
+    display: flex;
+    font-size: 16px;
+    margin-bottom: 1px;
+    padding: 1px 15px;
+    align-items: center;
+    cursor: pointer;
+    
+}
+
+.setting ul li i{
+padding-right: 8px;
+color: #88abff;
+font-size: 1.2rem;
+
+}
+
+.setting ul li:hover {
+
+    background-color: #f5f5f5;
+
+}
+
+.setting.show ul {
+    transform: scale(1);
+}
+
+/* .setting ul li {} */
 
 .confirm-modal {
     background-color: rgb(255, 255, 255);

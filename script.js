@@ -1,17 +1,17 @@
-let addBtn = document.querySelector('#add-btn')
-let closeBtn = document.querySelector('#close-modal')
-let modalContainer = document.querySelector('.modal-container')
-let overlay = document.querySelector('#overlay')
-let addNoteBtn = document.querySelector('.modal-btn')
+const addBtn = document.querySelector('#add-btn')
+const dltAllBtn = document.querySelector('#dlt-all')
+const closeBtn = document.querySelector('#close-modal')
+const modalContainer = document.querySelector('.modal-container')
+const overlay = document.querySelector('#overlay')
+const submitNoteBtn = document.querySelector("#submit-btn")
+const confirm_modal = document.querySelector('.confirm-modal')
+const confirmDltBtn = document.querySelector('#confirm-del')
+const cancelDelBtn = document.querySelector('#cancel-del')
 let titleInput = document.querySelector('.input-container input')
 let descInput = document.querySelector('.input-container textarea')
-let container = document.querySelector('.container')
-let dltBtn = document.querySelector('.dlt-btn')
-let confirm_modal = document.querySelector('.confirm-modal')
-var confirmDelBtn = document.querySelector('#confirm-del')
-let cancelDel = document.querySelector('#cancel-del')
-let modalMsg = document.querySelector('.modal-msg')
-const notes = JSON.parse(localStorage.getItem("notes") || "[]");
+let container = document.querySelector('.container') //
+let modalTitle = document.querySelector('#modal-title')
+
 const months = [
     "January",
     "February",
@@ -27,14 +27,12 @@ const months = [
     "December",
 ];
 
+const notes = JSON.parse(localStorage.getItem("notes") || "[]");
+let isUpdate = false, updateId;
+
+//All functions 
 
 
-showModal = () => {
-    overlay.classList.add('overlay')
-    modalContainer.style.display = "block"
-    document.querySelector('body').style.overflow = "hidden"
-    titleInput.focus();
-}
 closeModal = () => {
 
     modalContainer.style.display = "none"
@@ -45,9 +43,7 @@ closeModal = () => {
 }
 
 
-
 addNote = () => {
-
     let title = titleInput.value.trim(),
         description = descInput.value.trim();
     if (title || description) {
@@ -62,8 +58,13 @@ addNote = () => {
 
         // localStorage.setItem(title, description)
         let newNote = { title, description, date: `${month}, ${day} ${year} &nbsp; ${hour}:${minutes} ${Am_PM}` }
-
-        notes.unshift(newNote);
+        if (!isUpdate) {
+            notes.unshift(newNote);
+        } else {
+            isUpdate = false;
+            notes[updateId] = newNote;
+        }
+        // notes.unshift(newNote);
         localStorage.setItem('notes', JSON.stringify(notes));
         showNotes();
         closeModal();
@@ -71,8 +72,8 @@ addNote = () => {
 }
 
 
-showConfirmModal = (msg, noteId) => {
-    console.log(noteId)
+
+showConfirmModal = () => {
     confirm_modal.classList.add('showConfirm');
     // modalMsg.innerHTML = `${msg}`
     overlay.classList.add('overlay')
@@ -80,7 +81,9 @@ showConfirmModal = (msg, noteId) => {
 
 
 }
-confirmDelNote = (noteId) => {
+DelNote = (noteId) => {
+    let confirmDel = confirm("Are you sure you want to delete this Note ?")
+    if (!confirmDel) return;
     notes.splice(noteId, 1);
     localStorage.setItem("notes", JSON.stringify(notes))
     confirm_modal.classList.remove('showConfirm');
@@ -88,27 +91,24 @@ confirmDelNote = (noteId) => {
     overlay.classList.remove('overlay')
     showNotes();
 }
-cancelDel = () => {
+
+cancelDelNote = () => {
     confirm_modal.classList.remove('showConfirm');
     document.querySelector('body').style.overflow = "auto"
     overlay.classList.remove('overlay')
 
 
 }
+updateNote = (noteId, title, description) => {
 
-// confirmDelBtn.click(function (e) {
-//     e.preventDefault();
-//     let confirmDel = function (result) {
-//         if(result === 1){
-//             console.log("confirm")
-//         }else{
-//             console.log("not confrimed")
-//         }
-
-//     }
-// })
-
-// dltBtn.addEventListener("click",deleteNote())
+    updateId = noteId;
+    isUpdate = true;
+    addBtn.click();
+    titleInput.value = title;
+    descInput.value = description;
+    modalTitle.innerHTML = "Update a new Task"
+    submitNoteBtn.innerHTML = "Update Task"
+}
 showNotes = () => {
     if (notes.length < 1) {
         container.innerHTML = ""
@@ -129,22 +129,29 @@ showNotes = () => {
     } else {
 
         container.innerHTML = ""
-        // let msg = 'Are you sure?'
-        notes.forEach((note, id, msg) => {
+        notes.forEach((note, id) => {
+            console.log(id)
             let boxNote = document.createElement('div');
-
             boxNote.innerHTML = `
             <div class="box-note">
-                <div class="bxScroll">
-                    <p class="title">${note.title}</p>
-                    <p class="desc">${note.description}</p>
-                </div>
-                <hr class="line">
-                <div class="box-footer">
-                    <p class="date">${note.date}</p>
-                    <img onclick="showConfirmModal(${id})" class="btn dlt-btn" src="delete.png" alt="...">
-                </div>
+            <div class="bxScroll">
+                <p class="title">${note.title}</p>
+                <p class="desc">${note.description}</p>
             </div>
+            <hr class="line">
+            <div class="box-footer">
+                <p class="date">${note.date}</p>
+                <!-- <img onclick="updateNote('${id}','${note.title}','${note.description}')" class="btn dlt-btn" src="delete.png" alt="..."> -->
+                <div class="setting">
+                    <i onclick="showMenu(this)" class='bx bx-dots-horizontal-rounded dots' ></i>
+                    <ul>
+                        <li class="" onclick="updateNote(${id}, '${note.title}','${note.description}')"><i class='bx bx-edit'></i> Edit</li>
+                        <li class="" onclick="DelNote(${id})"><i class='bx bxs-trash-alt'></i>Delete</li>
+                    </ul>
+                </div>
+                <!-- <img onclick="updateNote(${id})" class="btn dlt-btn" src="delete.png" alt="..."> -->
+            </div>
+        </div>
     `
             container.appendChild(boxNote)
         });
@@ -154,15 +161,53 @@ showNotes = () => {
 
 
 }
-showNotes();
-
-clearAllNotes = () => {
-
-    localStorage.clear();
-    showNotes();
-    location.reload();
+function showMenu(elem) {
+    elem.parentElement.classList.add("show");
+    document.addEventListener("click", (e) => {
+        if (e.target.tagName != "I" || e.target != elem) {
+            elem.parentElement.classList.remove("show");
+        }
+    });
 }
 
+clearAllNotes = () => {
+    let confirmation = confirm("Are you sure you want to Clear All your notes ?")
+    if (!confirmation) {
+        return;
+    }
+    if (notes.length >= 1) {
+        // showConfirmModal();
+        localStorage.clear();
+        location.reload();
+    }
+
+}
+
+// All  Event Listeners
+
+
+addBtn.addEventListener("click", () => {
+    overlay.classList.add('overlay')
+    modalTitle.innerHTML = "Add a new Task"
+    submitNoteBtn.innerHTML = "Add Task"
+    modalContainer.style.display = "block"
+    document.querySelector('body').style.overflow = "hidden"
+    titleInput.focus();
+})
+
+closeBtn.addEventListener("click", () => {
+
+    modalContainer.style.display = "none"
+    overlay.classList.remove('overlay')
+    document.querySelector('body').style.overflow = "auto"
+    titleInput.value = "";
+    descInput.value = "";
+})
+submitNoteBtn.addEventListener("click", addNote)
+dltAllBtn.addEventListener('click', clearAllNotes)
+// confirmDltBtn.addEventListener('click', confirmDelNote)
+cancelDelBtn.addEventListener('click', cancelDelNote)
+window.addEventListener("load", showNotes)
 
 
 titleInput.addEventListener("keypress", function (event) {
